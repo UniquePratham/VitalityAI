@@ -1,200 +1,120 @@
-// components/ChatBot.js
+// pages/ai-diagnosis.js
 import { useState } from "react";
 import {
   Box,
-  Input,
   Button,
+  Input,
+  Select,
   Text,
-  Flex,
+  Heading,
   VStack,
-  IconButton,
+  Spinner,
 } from "@chakra-ui/react";
+import axios from "axios";
 import { motion } from "framer-motion";
-import { AiOutlineClose } from "react-icons/ai";
-import { FaPaperPlane, FaRobot } from "react-icons/fa";
+const appId = process.env.NEXT_PUBLIC_WOLFRAM_APP_ID;
 
-const MotionBox = motion(Box);
+export default function AIDiagnosis() {
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [symptoms, setSymptoms] = useState("");
+  const [diagnosis, setDiagnosis] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-const ChatBot = () => {
-  const [query, setQuery] = useState("");
-  const [messages, setMessages] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleQuerySubmit = async () => {
-    if (!query) return;
-
-    // Replace spaces with '+' in the query
-    const formattedQuery = query.split(" ").join("+");
-
-    // Construct the URL
-    const requestUrl = `https://cors-anywhere.herokuapp.com/https://api.wolframalpha.com/v2/query?input=${formattedQuery}&format=plaintext&output=JSON&appid=LYYUH3-6K982RERP2`;
-
-    console.log(requestUrl);
-
-    // Add user message
-    setMessages([...messages, { text: query, type: "user" }]);
-    setQuery("");
+  const handleDiagnosis = async () => {
+    setLoading(true);
 
     try {
-      const res = await fetch(requestUrl, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!res.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const data = await res.json();
-
-      const resultPod = data.queryresult.pods.find(
-        (pod) => pod.title === "Result"
+      // const query = `diagnose+${symptoms}+for+a+${age}+year+old+${gender}`;
+      const query = `${symptoms}+a+${age}+year+old+${gender}`;
+      const response = await axios.get(
+        `https://www.wolframalpha.com/api/v1/llm-api?input=${query}&appid=${appId}`
       );
-      const botResponse = resultPod
-        ? resultPod.subpods[0].plaintext
-        : "No answer found.";
-
-      // Add bot message
-      setMessages([...messages, { text: botResponse, type: "bot" }]);
+      setDiagnosis(response.data);
     } catch (error) {
-      console.error("Error fetching data from Wolfram API:", error);
-      setMessages([
-        ...messages,
-        { text: "Sorry, I encountered an error.", type: "bot" },
-      ]);
+      setDiagnosis("Unable to fetch diagnosis. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <>
-      {/* Chat Icon */}
-      <MotionBox
-        position="fixed"
-        bottom="10px"
-        left="10px"
-        borderRadius="full"
-        backgroundColor="red.500"
-        boxShadow="md"
-        padding="10px"
-        cursor="pointer"
-        onClick={() => setIsOpen(!isOpen)}
-        initial={{ scale: 0.8 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 0.3 }}
-        zIndex={1000}
+    <VStack
+      as={motion.div}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition="0.5s ease-in-out"
+      minH="100vh"
+      bgGradient="linear(to-b, blue.900, teal.600)"
+      align="center"
+      justify="center"
+      p={6}
+    >
+      <Heading color="white" mb={8}>
+        AI Diagnosis
+      </Heading>
+
+      <Box
+        bg="white"
+        p={8}
+        borderRadius="md"
+        boxShadow="xl"
+        w="full"
+        maxW="lg"
+        as={motion.div}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
       >
-        <IconButton
-          justify="center"
-          display="flex"
-          icon={<FaRobot />}
-          aria-label="Chat with AI"
-          variant="unstyled"
-          color="white"
-          fontSize="24px"
+        <Text mb={4}>Enter your details and symptoms:</Text>
+
+        <Input
+          placeholder="Age"
+          mb={4}
+          value={age}
+          onChange={(e) => setAge(e.target.value)}
         />
-      </MotionBox>
 
-      {/* Chat Interface */}
-      {isOpen && (
-        <MotionBox
-          position="fixed"
-          bottom="0"
-          left="0"
-          width="360px"
-          height="480px"
-          borderRadius="8px"
-          backgroundColor="white"
-          boxShadow="lg"
-          zIndex="1000"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isOpen ? 1 : 0 }}
-          transition={{ duration: 0.3 }}
+        <Select
+          placeholder="Select Gender"
+          mb={4}
+          value={gender}
+          onChange={(e) => setGender(e.target.value)}
         >
-          <Flex direction="column" height="100%">
-            <Box
-              backgroundColor="red.500"
-              color="white"
-              padding="4"
-              borderTopRadius="8px"
-              position="relative"
-              textAlign="center"
-            >
-              <Text fontWeight="bold" fontSize="lg">
-                Talk with Wolfram AI
-              </Text>
-              <IconButton
-                position="absolute"
-                top="4px"
-                right="4px"
-                onClick={() => setIsOpen(false)}
-                variant="link"
-                color="white"
-                fontSize="24px"
-                aria-label="Close Chat"
-                icon={<AiOutlineClose />}
-              />
-            </Box>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </Select>
 
-            <VStack
-              spacing="3"
-              align="stretch"
-              padding="4"
-              flex="1"
-              overflowY="auto"
-              backgroundColor="gray.100"
-            >
-              {messages.map((msg, index) => (
-                <Box
-                  key={index}
-                  padding="3"
-                  borderRadius="md"
-                  backgroundColor={
-                    msg.type === "user" ? "blue.100" : "green.100"
-                  }
-                  alignSelf={msg.type === "user" ? "flex-end" : "flex-start"}
-                  maxWidth="80%"
-                >
-                  <Text>{msg.text}</Text>
-                </Box>
-              ))}
-            </VStack>
+        <Input
+          placeholder="Enter your symptoms"
+          mb={4}
+          value={symptoms}
+          onChange={(e) => setSymptoms(e.target.value)}
+        />
 
-            <Flex
-              as="form"
-              padding="2"
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleQuerySubmit();
-              }}
-              alignItems="center"
-              backgroundColor="white"
-            >
-              <Input
-                placeholder="Type your question..."
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                marginRight="2"
-                size="md"
-                borderRadius="md"
-                backgroundColor="gray.50"
-                borderColor="gray.200"
-              />
-              <Button
-                type="submit"
-                colorScheme="blue"
-                size="md"
-                borderRadius="md"
-              >
-                <FaPaperPlane />
-              </Button>
-            </Flex>
-          </Flex>
-        </MotionBox>
+        <Button colorScheme="teal" size="lg" w="full" onClick={handleDiagnosis}>
+          Get Diagnosis
+        </Button>
+      </Box>
+
+      {loading ? (
+        <Spinner size="xl" color="white" mt={8} />
+      ) : (
+        diagnosis && (
+          <Box
+            mt={8}
+            p={6}
+            bg="white"
+            borderRadius="md"
+            shadow="xl"
+            textAlign="center"
+            w="full"
+            maxW="lg"
+          >
+            <Text fontSize="xl">{diagnosis}</Text>
+          </Box>
+        )
       )}
-    </>
+    </VStack>
   );
-};
-
-export default ChatBot;
+}
