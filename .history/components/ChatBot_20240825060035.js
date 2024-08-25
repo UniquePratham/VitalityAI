@@ -110,6 +110,7 @@ export default function AIDiagnosis() {
       animate={{ opacity: 1 }}
       transition="0.5s ease-in-out"
       minH="100vh"
+      width="80vw"
       bgGradient="linear(to-b, blue.900, teal.600)"
       align="center"
       justify="center"

@@ -11,7 +11,13 @@ import {
   Slide,
   Text,
   IconButton,
-  Link,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
   useDisclosure,
 } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
@@ -39,6 +45,9 @@ const MapComponent = () => {
   const [loading, setLoading] = useState(true);
   const [showPanel, setShowPanel] = useState(false);
   const [highlightedHospital, setHighlightedHospital] = useState(null);
+
+  // Modal control for Google Redirect
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -75,9 +84,8 @@ const MapComponent = () => {
     }
   };
 
-  const handleGoogleRedirect = (hospital) => {
-    const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${hospital.latitude},${hospital.longitude}`;
-    window.open(googleMapsUrl, "_blank");
+  const handleGoogleRedirect = () => {
+    window.location.href = "https://www.google.com";
   };
 
   return (
@@ -100,6 +108,9 @@ const MapComponent = () => {
             >
               Find Hospitals
             </Button>
+            <Button variant="solid" colorScheme="teal" onClick={onOpen}>
+              Health Portal
+            </Button>
           </HStack>
         </HStack>
       </Box>
@@ -114,7 +125,8 @@ const MapComponent = () => {
         {/* Map Section */}
         <Box
           h="70vh"
-          w={{ base: "100%", md: "50%" }}
+          w={{ base: "0%", md: "50%" }} // Hide map on mobile, show on desktop
+          display={{ base: "none", md: "block" }} // Hide map on mobile, show on desktop
           position="relative"
           border="1px solid #ccc"
           boxShadow="lg"
@@ -125,9 +137,13 @@ const MapComponent = () => {
             <Flex align="center" justify="center" h="100%">
               <Text>Loading map...</Text>
             </Flex>
-          ) : userLocation ? (
+          ) : (
             <MapContainer
-              center={[userLocation.latitude, userLocation.longitude]} // Use user's location for map center
+              center={
+                userLocation
+                  ? [userLocation.latitude, userLocation.longitude]
+                  : [51.505, -0.09] // Default fallback center
+              }
               zoom={14}
               style={{ height: "100%", width: "100%" }}
             >
@@ -155,7 +171,7 @@ const MapComponent = () => {
                     hospital.latitude === highlightedHospital.latitude &&
                     hospital.longitude === highlightedHospital.longitude
                       ? 1.0
-                      : 0.7
+                      : 0.5
                   }
                 >
                   <Popup>
@@ -167,10 +183,6 @@ const MapComponent = () => {
                 <PanToMarker location={highlightedHospital} />
               )}
             </MapContainer>
-          ) : (
-            <Flex align="center" justify="center" h="100%">
-              <Text>Location access denied or unavailable</Text>
-            </Flex>
           )}
         </Box>
 
@@ -181,9 +193,9 @@ const MapComponent = () => {
             bg="white"
             p={4}
             shadow="xl"
-            h="100%"
+            h="100%" // Full height slide
             border="1px solid #ccc"
-            overflowY="scroll"
+            overflowY="scroll" // Make slide scrollable
             position="relative"
           >
             <Flex justify="space-between" alignItems="center">
@@ -208,26 +220,40 @@ const MapComponent = () => {
                   w="full"
                   boxShadow="sm"
                   border="1px solid #ddd"
-                  onClick={() => setHighlightedHospital(hospital)}
+                  onClick={() =>
+                    setHighlightedHospital(hospital) // Highlight hospital on click
+                  }
                   cursor="pointer"
                   _hover={{ bg: "gray.100" }}
                 >
                   <Text fontWeight="bold">{hospital.name}</Text>
-                  <Link
-                    color="blue.500"
-                    onClick={(e) => {
-                      e.stopPropagation(); // Prevent map pan when clicking on the link
-                      handleGoogleRedirect(hospital);
-                    }}
-                  >
-                    View on Google Maps
-                  </Link>
                 </Box>
               ))}
             </VStack>
           </Box>
         </Slide>
       </Flex>
+
+      {/* Modal for Google Redirect */}
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Redirecting to Google</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text>Do you want to go to Google?</Text>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={handleGoogleRedirect}>
+              Yes
+            </Button>
+            <Button variant="ghost" onClick={onClose}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };
