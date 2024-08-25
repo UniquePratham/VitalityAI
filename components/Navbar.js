@@ -62,7 +62,7 @@ import {
                 Cardiometer
               </Link>
             </NextLink>
-            <NextLink href="/" passHref>
+            <NextLink href="https://bonefish-solid-ferret.ngrok-free.app" passHref>
               <Link _hover={{ color: "green.300", transition: "color 0.3s" }}>
                 Disease Prediction
               </Link>
