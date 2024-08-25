@@ -52,7 +52,7 @@ import {
                 Women & Children
               </Link>
             </NextLink>
-            <NextLink href="/chatbot" passHref>
+            <NextLink href="https://e54f-34-16-141-249.ngrok-free.app/" passHref>
               <Link _hover={{ color: "green.300", transition: "color 0.3s" }}>
                 AI Diagnosis
               </Link>

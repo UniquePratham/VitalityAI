@@ -70,7 +70,7 @@ export default function AIDiagnosis() {
           formattedDiagnosis.push(
             <Box key={key} mt={4}>
               <Text fontWeight="bold">{key}</Text>
-              <Image src={imageUrl} alt="Diagnosis Image" mt={2} width="100%" />
+              <Image src={imageUrl} alt="Diagnosis Image" mt={2} />
             </Box>
           );
         } else if (key.startsWith("Wolfram|Alpha website result")) {
@@ -114,24 +114,18 @@ export default function AIDiagnosis() {
       align="center"
       justify="center"
       p={6}
-      spacing={[8, 12, 16]} // Responsive spacing between elements
     >
-      <Heading
-        color="white"
-        mb={8}
-        fontSize={["2xl", "3xl", "4xl"]} // Responsive font sizes
-        textAlign="center" // Center text for small screens
-      >
+      <Heading color="white" mb={8}>
         AI Diagnosis
       </Heading>
 
       <Box
         bg="white"
-        p={[4, 6, 8]} // Responsive padding
+        p={8}
         borderRadius="md"
         boxShadow="xl"
         w="full"
-        maxW={["sm", "md", "lg"]} // Responsive width
+        maxW="lg"
         as={motion.div}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
@@ -143,7 +137,6 @@ export default function AIDiagnosis() {
           mb={4}
           value={age}
           onChange={(e) => setAge(e.target.value)}
-          size={["sm", "md", "lg"]} // Responsive input size
         />
 
         <Select
@@ -151,7 +144,6 @@ export default function AIDiagnosis() {
           mb={4}
           value={gender}
           onChange={(e) => setGender(e.target.value)}
-          size={["sm", "md", "lg"]} // Responsive select size
         >
           <option value="male">Male</option>
           <option value="female">Female</option>
@@ -163,16 +155,9 @@ export default function AIDiagnosis() {
           mb={4}
           value={symptoms}
           onChange={(e) => setSymptoms(e.target.value)}
-          size={["sm", "md", "lg"]} // Responsive input size
         />
 
-        <Button
-          colorScheme="teal"
-          size="lg"
-          w="full"
-          onClick={handleDiagnosis}
-          py={[4, 6]} // Responsive button padding
-        >
+        <Button colorScheme="teal" size="lg" w="full" onClick={handleDiagnosis}>
           Get Diagnosis
         </Button>
       </Box>
@@ -183,13 +168,13 @@ export default function AIDiagnosis() {
         diagnosis && (
           <Box
             mt={8}
-            p={[4, 6, 8]} // Responsive padding
+            p={6}
             bg="white"
             borderRadius="md"
             shadow="xl"
             textAlign="center"
             w="full"
-            maxW={["sm", "md", "lg"]} // Responsive width
+            maxW="lg"
           >
             {formatDiagnosis(diagnosis)}
           </Box>

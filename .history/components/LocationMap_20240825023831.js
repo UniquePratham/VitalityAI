@@ -125,11 +125,20 @@ const MapComponent = () => {
             <Flex align="center" justify="center" h="100%">
               <Text>Loading map...</Text>
             </Flex>
-          ) : userLocation ? (
+          ) : (
             <MapContainer
-              center={[userLocation.latitude, userLocation.longitude]} // Use user's location for map center
+              center={
+                userLocation
+                  ? [userLocation.latitude, userLocation.longitude]
+                  : [51.505, -0.09]
+              }
               zoom={14}
               style={{ height: "100%", width: "100%" }}
+              whenReady={(map) => {
+                if (userLocation) {
+                  map.target.flyTo([userLocation.latitude, userLocation.longitude], 14);
+                }
+              }}
             >
               <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -167,10 +176,6 @@ const MapComponent = () => {
                 <PanToMarker location={highlightedHospital} />
               )}
             </MapContainer>
-          ) : (
-            <Flex align="center" justify="center" h="100%">
-              <Text>Location access denied or unavailable</Text>
-            </Flex>
           )}
         </Box>
 
