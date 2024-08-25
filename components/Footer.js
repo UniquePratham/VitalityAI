@@ -21,6 +21,7 @@ import emailjs from "emailjs-com"; // Import EmailJS
 
 const Footer = () => {
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const toast = useToast();
 
   const handleSubscribe = (e) => {
@@ -29,10 +30,14 @@ const Footer = () => {
     if (email) {
       emailjs
         .send(
-          "service_vuu1jrw", // Service ID
-          "template_xxxxxxx", // Template ID from EmailJS
-          { user_email: email }, // Data being sent (email)
-          "user_xxxxxxxxx" // Public key from EmailJS
+          "vitality_ai", // Service ID
+          "vitality_ai_template", // Template ID from EmailJS
+          {
+            user_email: email,
+            user_name: username,
+            message: "Thank you for subscribing!",
+          }, // Data being sent (email)
+          "7wARxgqnQG0HcsgzD" // Public key from EmailJS
         )
         .then(
           (response) => {
@@ -123,7 +128,18 @@ const Footer = () => {
           </Text>
           <form onSubmit={handleSubscribe}>
             <Flex direction="column" alignItems="center">
-              <Flex w={{ base: "100%", md: "auto" }} mb={4}>
+              <Flex w={{ base: "100%", md: "auto" }} mb={4} direction="column" alignItems="center">
+                <Input
+                  placeholder="Enter your username"
+                  bg="gray.700"
+                  size="lg"
+                  color="white"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  _placeholder={{ color: "gray.400" }}
+                  m={2}
+
+                />
                 <Input
                   placeholder="Enter your email"
                   bg="gray.700"
@@ -132,7 +148,7 @@ const Footer = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   _placeholder={{ color: "gray.400" }}
-                  mr={2}
+                  m={2}
                 />
                 <Button
                   type="submit"
@@ -144,6 +160,7 @@ const Footer = () => {
                     color: "white",
                     boxShadow: "0px 0px 10px rgba(72, 187, 250, 0.7)",
                   }}
+                  m={2}
                 >
                   Subscribe
                 </Button>
