@@ -69,7 +69,7 @@ const Footer = () => {
   };
 
   return (
-    <Box as="footer" py={8} bg="gray.700" color="white" px={4}>
+    <Box as="footer" py={8} bg="gray.800" color="white" px={4}>
       {/* Contact and Social Links */}
       <Flex
         direction={{ base: "column", md: "row" }}
@@ -86,7 +86,7 @@ const Footer = () => {
           textAlign={{ base: "center", md: "left" }}
         >
           <Flex align="center" mb={4}>
-            <Icon as={FiMapPin} mr={2} color="cyan" />
+            <Icon as={FiMapPin} mr={2} color="cyan.400" />
             <Text
               cursor="pointer"
               _hover={{ color: "green.300", transition: "color 0.3s" }}
@@ -95,7 +95,7 @@ const Footer = () => {
             </Text>
           </Flex>
           <Flex align="center" mb={4}>
-            <Icon as={FiPhone} mr={2} color="red" />
+            <Icon as={FiPhone} mr={2} color="red.400" />
             <Text
               cursor="pointer"
               _hover={{ color: "green.300", transition: "color 0.3s" }}
@@ -104,7 +104,7 @@ const Footer = () => {
             </Text>
           </Flex>
           <Flex align="center" mb={4}>
-            <Icon as={FiMail} mr={2} color="yellow" />
+            <Icon as={FiMail} mr={2} color="yellow.400" />
             <Text
               cursor="pointer"
               _hover={{ color: "green.300", transition: "color 0.3s" }}
@@ -117,7 +117,7 @@ const Footer = () => {
         {/* Right part: Social Links and Newsletter Subscription */}
         <Box flex="1" textAlign={{ base: "center", md: "right" }}>
           <Flex justify="center" mb={4}>
-            {/* LinkedIn */}
+            {/* Social Icons */}
             <Link
               href="https://www.linkedin.com/in/shaswata-saha-74b209251/"
               isExternal
@@ -126,7 +126,6 @@ const Footer = () => {
             >
               <Icon as={FaLinkedin} boxSize={6} />
             </Link>
-            {/* WhatsApp */}
             <Link
               href="https://wa.me/919674177512"
               isExternal
@@ -135,7 +134,6 @@ const Footer = () => {
             >
               <Icon as={FaWhatsapp} boxSize={6} />
             </Link>
-            {/* Instagram */}
             <Link
               href="https://www.instagram.com"
               isExternal
@@ -144,7 +142,6 @@ const Footer = () => {
             >
               <Icon as={FaInstagram} boxSize={6} />
             </Link>
-            {/* Telegram */}
             <Link
               href="https://t.me"
               isExternal
@@ -153,7 +150,6 @@ const Footer = () => {
             >
               <Icon as={FaTelegram} boxSize={6} />
             </Link>
-            {/* Facebook */}
             <Link
               href="https://www.facebook.com"
               isExternal
@@ -167,8 +163,11 @@ const Footer = () => {
           {/* Newsletter subscription section */}
           <form onSubmit={handleSubscribe}>
             <Flex justify="center" flexDir="column" alignItems="center">
-              <Text mb={2} textAlign="center">
-                Subscribe to our newsletter
+              <Text mb={2} fontSize="lg" color="gold.300" fontWeight="bold">
+                Stay Updated!
+              </Text>
+              <Text mb={4} textAlign="center" fontSize="md">
+                Subscribe to our newsletter for exclusive updates and news.
               </Text>
               <Flex>
                 <Input
@@ -189,7 +188,7 @@ const Footer = () => {
                   _hover={{
                     bg: "black",
                     color: "gold",
-                    boxShadow: "2px 2px 5px rgba(0,0,0,0.7)",
+                    boxShadow: "2px 2px 10px rgba(255, 215, 0, 0.9)",
                   }}
                   transition="all 0.3s"
                 >
@@ -208,7 +207,7 @@ const Footer = () => {
           top="-12px"
           left="50%"
           transform="translateX(-50%)"
-          bg="gray.700"
+          bg="gray.800"
           px={4}
         >
           <Text fontSize="sm" color="gray.400">
