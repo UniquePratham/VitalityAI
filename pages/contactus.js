@@ -18,6 +18,7 @@ import Footer from "@/components/Footer";
 const Navbar = dynamic(() => import("@/components/Navbar"), {
   ssr: false,
 });
+import { useRouter } from "next/router";
 
 const MotionBox = motion(Box);
 
@@ -25,6 +26,7 @@ export default function Contact() {
   const iconColor = useColorModeValue("teal.400", "teal.300"); // Updated to match the reference theme
   const buttonBg = useColorModeValue("teal.500", "teal.400");
   const buttonHoverBg = useColorModeValue("teal.600", "teal.500");
+  const router = useRouter();
   const cardBg = useColorModeValue(
     "rgba(255, 255, 255, 0.3)",
     "rgba(0, 0, 0, 0.3)"
@@ -33,6 +35,9 @@ export default function Contact() {
     "rgba(255, 255, 255, 0.3)",
     "rgba(0, 0, 0, 0.3)"
   );
+  const handleButtonClick = () => {
+    router.push("https://64d2-43-251-179-145.ngrok-free.app"); // Redirect to the map page
+  };
 
   return (
     <>
@@ -229,7 +234,6 @@ export default function Contact() {
             <Box width="100%" mt={8}>
               <Button
                 as="a"
-                href="/portal"
                 width="100%"
                 bg={buttonBg}
                 _hover={{ bg: buttonHoverBg }}
@@ -238,6 +242,7 @@ export default function Contact() {
                 padding="1.5rem"
                 textAlign="center"
                 borderRadius="md"
+                onClick={handleButtonClick}
               >
                 GO TO HEALTH PORTAL
               </Button>
