@@ -69,8 +69,7 @@ const Footer = () => {
   };
 
   return (
-    <Box as="footer" py={8} bg="gray.800" color="white" px={4}>
-      {/* Contact and Social Links */}
+    <Box as="footer" py={8} bg="gray.900" color="white" px={4}>
       <Flex
         direction={{ base: "column", md: "row" }}
         justify={{ base: "center", md: "space-between" }}
@@ -78,18 +77,18 @@ const Footer = () => {
         flexWrap="wrap"
         maxW="1200px"
         mx="auto"
+        mb={8}
       >
         {/* Left part: Contact Information */}
-        <Box
-          flex="1"
-          mb={{ base: 4, md: 0 }}
-          textAlign={{ base: "center", md: "left" }}
-        >
+        <Box textAlign={{ base: "center", md: "left" }} mb={{ base: 6, md: 0 }}>
+          <Text fontSize="xl" fontWeight="bold" mb={2}>
+            Contact Us
+          </Text>
           <Flex align="center" mb={4}>
             <Icon as={FiMapPin} mr={2} color="cyan.400" />
             <Text
-              cursor="pointer"
               _hover={{ color: "green.300", transition: "color 0.3s" }}
+              cursor="pointer"
             >
               Salt Lake, Kolkata- 700138
             </Text>
@@ -97,8 +96,8 @@ const Footer = () => {
           <Flex align="center" mb={4}>
             <Icon as={FiPhone} mr={2} color="red.400" />
             <Text
-              cursor="pointer"
               _hover={{ color: "green.300", transition: "color 0.3s" }}
+              cursor="pointer"
             >
               +91 9674177512
             </Text>
@@ -106,18 +105,59 @@ const Footer = () => {
           <Flex align="center" mb={4}>
             <Icon as={FiMail} mr={2} color="yellow.400" />
             <Text
-              cursor="pointer"
               _hover={{ color: "green.300", transition: "color 0.3s" }}
+              cursor="pointer"
             >
               shaswata.ssaha@gmail.com
             </Text>
           </Flex>
         </Box>
 
-        {/* Right part: Social Links and Newsletter Subscription */}
-        <Box flex="1" textAlign={{ base: "center", md: "right" }}>
+        {/* Newsletter subscription section */}
+        <Box textAlign={{ base: "center", md: "left" }}>
+          <Text fontSize="xl" fontWeight="bold" mb={2}>
+            Stay Updated!
+          </Text>
+          <Text mb={4}>
+            Subscribe to our newsletter for exclusive updates and news.
+          </Text>
+          <form onSubmit={handleSubscribe}>
+            <Flex direction="column" alignItems="center">
+              <Flex w={{ base: "100%", md: "auto" }} mb={4}>
+                <Input
+                  placeholder="Enter your email"
+                  bg="gray.700"
+                  size="lg"
+                  color="white"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  _placeholder={{ color: "gray.400" }}
+                  mr={2}
+                />
+                <Button
+                  type="submit"
+                  size="lg"
+                  bg="cyan.400"
+                  color="black"
+                  _hover={{
+                    bg: "cyan.500",
+                    color: "white",
+                    boxShadow: "0px 0px 10px rgba(72, 187, 250, 0.7)",
+                  }}
+                >
+                  Subscribe
+                </Button>
+              </Flex>
+            </Flex>
+          </form>
+        </Box>
+
+        {/* Social Links */}
+        <Box textAlign={{ base: "center", md: "left" }}>
+          <Text fontSize="xl" fontWeight="bold" mb={2}>
+            Follow Us
+          </Text>
           <Flex justify="center" mb={4}>
-            {/* Social Icons */}
             <Link
               href="https://www.linkedin.com/in/shaswata-saha-74b209251/"
               isExternal
@@ -159,69 +199,22 @@ const Footer = () => {
               <Icon as={FaFacebook} boxSize={6} />
             </Link>
           </Flex>
-
-          {/* Newsletter subscription section */}
-          <form onSubmit={handleSubscribe}>
-            <Flex justify="center" flexDir="column" alignItems="center">
-              <Text mb={2} fontSize="lg" color="gold.300" fontWeight="bold">
-                Stay Updated!
-              </Text>
-              <Text mb={4} textAlign="center" fontSize="md">
-                Subscribe to our newsletter for exclusive updates and news.
-              </Text>
-              <Flex>
-                <Input
-                  placeholder="Enter your email"
-                  bg="gray.600"
-                  color="white"
-                  size="lg"
-                  mr={2}
-                  _placeholder={{ color: "gray.400" }}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <Button
-                  type="submit"
-                  bg="gold"
-                  size="lg"
-                  color="black"
-                  _hover={{
-                    bg: "black",
-                    color: "gold",
-                    boxShadow: "2px 2px 10px rgba(255, 215, 0, 0.9)",
-                  }}
-                  transition="all 0.3s"
-                >
-                  Subscribe
-                </Button>
-              </Flex>
-            </Flex>
-          </form>
         </Box>
       </Flex>
 
       {/* Developer Attribution */}
-      <Flex justify="center" mt={8} position="relative">
-        <Box
-          position="absolute"
-          top="-12px"
-          left="50%"
-          transform="translateX(-50%)"
-          bg="gray.800"
-          px={4}
-        >
-          <Text fontSize="sm" color="gray.400">
-            Developed by{" "}
-            <Link
-              href="https://acns.vercel.app"
-              isExternal
-              color="cyan.500"
-              _hover={{ color: "white", transition: "color 0.3s" }}
-            >
-              ACNS
-            </Link>
-          </Text>
-        </Box>
+      <Flex justify="center" mt={4}>
+        <Text fontSize="sm" color="gray.500" textAlign="center">
+          Developed by{" "}
+          <Link
+            href="https://acns.vercel.app"
+            isExternal
+            color="cyan.500"
+            _hover={{ color: "white", transition: "color 0.3s" }}
+          >
+            ACNS
+          </Link>
+        </Text>
       </Flex>
 
       {/* Copyright */}
