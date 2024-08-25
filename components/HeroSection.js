@@ -46,9 +46,9 @@ export default function HeroSection() {
   const handleButton2Click = () => {
     router.push("/map"); // Redirect to the map page
   };
-  // const handleButton3Click = () => {
-  //   router.push("/map"); // Redirect to the map page
-  // };
+  const handleButton3Click = () => {
+    router.push("https://64d2-43-251-179-145.ngrok-free.app"); // Redirect to the map page
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -253,6 +253,7 @@ export default function HeroSection() {
             flex={1}
             borderRadius="md"
             transition="transform 0.3s ease, background-color 0.3s ease"
+            onClick={handleButton3Click}
           >
             <Icon as={FaRegClipboard} boxSize={[8, 10]} mb={4} />
             <Text fontWeight="400" fontSize={["24px", "28px"]}>
