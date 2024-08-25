@@ -62,6 +62,11 @@ import {
                 Cardiometer
               </Link>
             </NextLink>
+            <NextLink href="/" passHref>
+              <Link _hover={{ color: "green.300", transition: "color 0.3s" }}>
+                Disease Prediction
+              </Link>
+            </NextLink>
             <NextLink
               href="https://buck-upward-absolutely.ngrok-free.app/"
               passHref

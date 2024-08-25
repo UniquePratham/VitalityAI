@@ -1,0 +1,79 @@
+/* style.css */
+
+/* Body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #0052f6;
+}
+
+/* Sidebar */
+.sidebar .css-1lqeq92.e19fkh7r0 {
+    background-color: #2c3e50;
+    color: #fff;
+    font-size: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.5s ease forwards;
+}
+
+/* Sidebar links */
+.sidebar .css-1lqeq92.e19fkh7r0 a {
+    color: #fff;
+}
+
+/* Button */
+.css-1yqjdb1 {
+    background-color: #3498db;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Button hover */
+.css-1yqjdb1:hover {
+    background-color: #2980b9;
+}
+
+/* Success message */
+.success {
+    background-color: #2ecc71;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    animation: slideIn 0.5s ease forwards;
+}
+
+/* Title */
+.title {
+    color: #2980b9;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* Animation */
+@keyframes slideIn {
+    from {
+        transform: translateY(-50%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
