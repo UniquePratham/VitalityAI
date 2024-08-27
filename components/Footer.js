@@ -84,6 +84,7 @@ const Footer = () => {
         mx="auto"
         mb={8}
       >
+        {/* */}
         {/* Left part: Contact Information */}
         <Box textAlign={{ base: "center", md: "left" }} mb={{ base: 6, md: 0 }}>
           <Text fontSize="xl" fontWeight="bold" mb={2}>
@@ -128,7 +129,12 @@ const Footer = () => {
           </Text>
           <form onSubmit={handleSubscribe}>
             <Flex direction="column" alignItems="center">
-              <Flex w={{ base: "100%", md: "auto" }} mb={4} direction="column" alignItems="center">
+              <Flex
+                w={{ base: "100%", md: "auto" }}
+                mb={4}
+                direction="column"
+                alignItems="center"
+              >
                 <Input
                   placeholder="Enter your username"
                   bg="gray.700"
@@ -138,7 +144,6 @@ const Footer = () => {
                   onChange={(e) => setUsername(e.target.value)}
                   _placeholder={{ color: "gray.400" }}
                   m={2}
-
                 />
                 <Input
                   placeholder="Enter your email"
