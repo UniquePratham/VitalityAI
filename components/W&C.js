@@ -17,7 +17,7 @@ import {
   ModalCloseButton,
   ModalFooter,
 } from "@chakra-ui/react";
-import { FaFemale, FaChild, FaPregnantWoman } from "react-icons/fa";
+import { FaFemale, FaChild, FaHeartbeat } from "react-icons/fa";
 
 // Typing animation keyframes
 const typing = keyframes`
@@ -180,7 +180,7 @@ const WC = () => {
             spacing={4}
             ml={[0, 2]} // Margin left only on larger screens
           >
-            <Icon as={FaPregnantWoman} boxSize={[8, 10]} mb={4} />{" "}
+            <Icon as={FaHeartbeat} boxSize={[8, 10]} mb={4} />{" "}
             {/* Responsive icon size */}
             <Heading size={["md", "lg"]} fontWeight="300" mb={2}>
               Pregnancy Care
