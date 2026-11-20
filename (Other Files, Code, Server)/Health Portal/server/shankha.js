@@ -8,7 +8,7 @@ const { getDatabase, ref, onValue } = require("firebase/database");
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBpWdmVX83wL5Gpunp2DejkXXa-gYmVR7s",
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "arduino-f8fe8.firebaseapp.com",
   databaseURL: "https://arduino-f8fe8-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "arduino-f8fe8",
@@ -79,7 +79,7 @@ const socket = io('http://localhost:4000');
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBpWdmVX83wL5Gpunp2DejkXXa-gYmVR7s",
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "arduino-f8fe8.firebaseapp.com",
   databaseURL: "https://arduino-f8fe8-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "arduino-f8fe8",
